@@ -1,0 +1,27 @@
+*{
+	font-family: 'Rosatom';
+	transition: 0.2s;
+	user-select: none;
+}
+@font-face{
+	font-family: 'Rosatom';
+	src: url("../fonts/RST75.ttf");
+}
+@media (max-width: 1080px) {
+	.menu{
+		display: none;
+	}
+	.operator{
+		width: 100%;
+		left: 0;
+	}
+}
+#realtimer{
+	position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 30px;
+}
+.ct-chart-bar.ct-horizontal-bars .ct-label.ct-vertical.ct-start {
+    cursor: pointer;
+}

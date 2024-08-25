@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKILLS ТРЕКЕР</title>
+    <link id='style_host' rel="stylesheet" href=""/>
+    <link id='style_font' rel="stylesheet" href="./HC_CORE/font.css"/>
+</head>
+<body>
+    <div id="global"></div>
+    <progress class="loader" max="100" value="0"></progress>
+    <div class="topline">
+        <div class="logo dark">
+            <img src="./HC_CORE/images/HyperMatrix.png">
+            <pre>  SKILLS ТРЕКЕР</pre> 
+        </div>
+        <div class="username"></div>
+        <!--<div class="instruction interactible" title="Инструкция">
+            <img src="./HC_CORE/images/instruction.png">
+        </div>-->
+        <div class="logout interactible" title="Выход из Сессии">
+            <img src="./HC_CORE/images/Door.png">
+        </div>
+    </div>
+    <div class="main">
+        <div class="menu closed">
+            <div class="menuButton interactible" title="Меню">></div>
+        </div>
+        <iframe class="operator scaled" seamless></iframe>
+    </div>
+    <div class="subwindowRoot closed">
+    </div>
+    <iframe id= "download" style="display: none;"></iframe>
+</body>
+<script src="./HC_CORE/HC_CORE.js"></script>
+
+</html>

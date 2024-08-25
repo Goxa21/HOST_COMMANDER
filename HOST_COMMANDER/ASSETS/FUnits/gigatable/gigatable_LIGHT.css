@@ -1,0 +1,242 @@
+/*{
+	font-family: 'Rosatom';
+}
+@font-face{
+	font-family: 'Rosatom';
+	src: url("../../fonts/RST75.ttf");
+}*/
+html{
+    overflow: hidden;
+}
+body{
+    margin: 0;
+}
+.topline{
+    position: fixed;
+    width: 100%;
+    background-color: rgb(201, 201, 201);
+    color: rgb(0,0,0);
+    height: 35px;
+    padding-right: 10px;
+    margin-top: -38px;
+    display: inline-flex;
+    align-items: center;
+}
+.option{
+    display: flex;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+}
+select {
+    font-size: 16px;
+    margin-left: 5px;
+    background-color: rgb(201, 201, 201);
+    color: rgb(0,0,0);
+    border: 2px solid rgb(0,0,0);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.tablebase{
+    height: 96%;
+    width: 100%;
+    overflow: scroll;
+}
+.gigatable{
+    overflow: scroll;
+    position: relative;
+    z-index: 100;
+}
+.gigatable th{
+    background-color: rgb(201 201 201);
+    min-width: 160px;
+    height: 85px;
+    border-collapse: collapse;
+    border: solid;
+    color: rgb(0,0,0);
+    top: 0;
+    border: 1px solid rgb(0,0,0);
+    position: sticky;
+}
+.gigatable .mod1{
+    background-color: #e3e3e3;
+}
+.gigatable .mod2{
+    background-color: rgb(241 241 241);
+}
+.gigatable .header .filt, .gigatable .header .sort{
+    position: absolute;
+    filter: invert(1);
+}
+.gigatable .header .filt {
+    top: 20px;
+    right: 5px;
+    width: 10px;
+    height: 15px;
+}
+.gigatable .header .sort{
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    transform: rotate(180deg);
+    transition: 0.5s;
+}
+.gigatable .header .sort.inversed{
+    transform: rotate(0deg);
+}
+.gigatable td{
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    height: 30px;
+    overflow: auto;
+    max-width: 400px;
+    white-space: nowrap;
+    padding: 5px;
+}
+.filterbase{
+    position: absolute;
+    opacity: 1;
+    bottom: -80px;
+    height: 60px;
+    padding: 5px;
+    background-color: rgb(0,0,0);
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 3px black;
+    width: -webkit-fill-available;
+    background-color: rgb(201, 201, 201);
+    color: rgb(0,0,0);
+    transition: 0.5s;
+    display: inherit;
+    z-index: 300;
+}
+.filterbase input, .filterbase .cancel, .filterbase .submit{
+    display: inline-block;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+.filterbase input{
+    height: 47%;
+    width: calc(100% - 70px);
+    margin: auto;
+    font-size: 12px;
+    background-color: rgb(225, 225, 225);
+}
+.filterbase .cancel, .filterbase .submit{
+    margin-left: 5px;
+    width: 15px;
+}
+.sorterstring{
+    display: flex;
+    align-items: center;
+}
+.sorterstring .sorttext, .sorterstring img{
+    display: inline-block;
+    font-size: 14px;
+}
+.sorterstring .asc, .filterbase .sorterstring .desc{
+    width: 25px;
+    height: 20px;
+    margin-left: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sorterstring .asc img, .filterbase .sorterstring .desc img{
+    width: 80%;
+    height: 80%;
+    filter: invert(1);
+}
+.sorterstring .asc.active, .filterbase .sorterstring .desc.active{
+    filter: invert(1);
+}
+.filterstring{
+    margin-bottom: 10px;
+}
+.interactible{
+    border: 1px solid rgb(0,0,0);
+    border-radius: 5px;
+    background-color: rgb(201, 201, 201);
+    transition: 0.2s;
+    cursor: pointer;
+}
+.interactible:hover{
+    filter: invert(1);
+    /*color: rgb(255 255 255);*/
+}
+.interactible:hover img {
+    filter: invert(1);
+}
+.filterbase.hidden, .gigatable .header .filt.hidden, .gigatable .header .sort.hidden{
+    opacity: 0;
+}
+.filterbase.hidden{
+    bottom: 0px;
+}
+.scrollbase{
+    margin-top: 38px;
+    width: 100%;
+    height: 100%;
+}
+.loadMore{
+    height: 30px;
+    position: sticky;
+    left: 0px;
+    text-align: center;
+    color: rgb(0,0,0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(201, 201, 201);
+}
+/*Scrollbar setup*/
+::-webkit-scrollbar-track {
+    position: absolute;
+    background: gainsboro;
+    border-radius: 15px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(84, 84, 84);
+    border-radius: 15px;
+}
+.gigatable td::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgb(150, 150, 150);
+}
+
+/*
+::-webkit-scrollbar-button:single-button{
+    background-color: #e3e3e3;
+    background-size: 8px;
+    background-repeat: no-repeat;
+    display: block;
+}
+::-webkit-scrollbar-button:single-button:vertical:decrement{
+    height: 12px;
+    width: 16px;
+    background-position: center 4px;
+}
+::-webkit-scrollbar-button:single-button:vertical:decrement{
+    border-width: 0 3px 3px 3px;
+    border-color: transparent transparent #555555 transparent;
+}
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover{
+    border-color: transparent transparent #777777 transparent;
+}
+::-webkit-scrollbar-button:single-button:vertical:increment{
+    border-width: 3px 3px 0 3px;
+    border-color: transparent transparent #555555 transparent;
+}
+::-webkit-scrollbar-button:single-button:vertical:increment:hover{
+    border-color: transparent transparent #777777 transparent;
+}
+*/

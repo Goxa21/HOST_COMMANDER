@@ -1,0 +1,356 @@
+/**{
+	font-family: 'Rosatom';
+}
+@font-face{
+	font-family: 'Rosatom';
+	src: url("../fonts/RST75.ttf");
+}*/
+#global{
+    display: none;
+    height: 0px;
+    width: 0px;
+    position: absolute;
+} 
+body{
+    margin: 0;
+    background-color: rgb(35, 35, 35);
+    background-image: url('./images/Checker_1.5.png');
+    background-repeat: repeat;
+    background-size: initial;
+}
+.main{
+    width: 100%;
+    margin-top: 35px;
+    height: calc(100% - 35px);
+}
+.topline{
+    position: fixed;
+    width: 100%;
+    background-color: rgb(54, 54, 54);
+    text-align: center;
+    color: rgb(255,255,255);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    margin-top: -30px;
+    box-shadow: 0px 0px 15px black;
+}
+.menu{
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    height: calc(100vh - 40px);
+    width: 290px;
+    z-index: 100;
+    background-color: rgb(54, 54, 54);
+    color: rgb(255,255,255);
+    transition: 1s;
+    box-shadow: 0px 20px 15px 0px black;
+}
+.menu.closed{
+    left: -290px;
+}
+.menuButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 20px;
+    height: 30px;
+    border: 1px solid rgb(255,255,255);
+    right: -290px;
+    background-color: rgb(54, 54, 54);
+    border-radius: 5px;
+}
+.tome{
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: rgb(255,255,255);
+    width: 88%;
+    top: -25px;
+    right: 0%;
+    position: relative;
+    padding: 10px;
+    margin: 10px 0 0 10px;
+    color: rgb(255,255,255);
+    border-radius: 0 0 0 5px;
+}
+.tome .page{
+    border: 1px solid rgb(255,255,255);
+    width: 100% -10px;
+    margin: 5px 0 0 0;
+    padding: 5px;
+    transition: 0.5s;
+    height: 25px;
+    border-radius: 5px;
+    background-color: rgb(54, 54, 54);
+}
+.tome .page:hover{
+    background-color: aliceblue;
+    color: rgb(0,0,0);
+}
+.tome .page.hidden{
+    height: 0;
+    font-size: 0;
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+}
+.tome .name{
+    transition: 0.5s;
+    cursor: pointer;
+}
+.tome:hover{
+    background-color: rgb(80,80,80);
+}
+.operator{
+    width: calc(100% - 290px);
+    height: calc(100% - 5px);
+    position: relative;
+    left: 290px;
+    transition: 1s;
+    top: 5px;
+}
+.operator.scaled{
+    width: 100%;
+    left: 0;
+}
+.loader{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: 0.5s;
+}
+progress::-webkit-progress-bar{
+    background-color: rgb(54, 54, 54);
+}
+progress::-webkit-progress-value{
+    background-color: var(--color,rgb(171, 184, 0));
+}
+progress{
+    height: 5px;
+    background-color: rgb(35, 35, 35);
+}
+.toplineText{
+    margin-right: 10px;
+}
+.topline .logo, .topline .instruction, .topline .logout{
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+.topline .instruction, .topline .logout{
+    margin-left: 10px;
+}
+.topline .logout{
+    margin-right: 5px;
+}
+.topline .logo{
+    position: absolute;
+    left: 75px;
+    top: -5px;
+    font-size: 18px;
+}
+.topline .logo img:hover{
+    cursor: pointer;
+    filter: invert(1);
+}
+.topline .username{
+    width: 250px;
+    text-align: right;
+}
+.topline .logo img, .topline .instruction img{
+    width: 25px;
+    height: 25px;
+}
+.topline .logout img{
+    width: 20px;
+    height: 25px;
+}
+.subwindowRoot{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.45);
+    z-index: 500;
+}
+.subwindowRoot.closed{
+    visibility: hidden;
+}
+.subwindow_dot{
+    position: fixed;
+    width: 0;
+    height: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.subwindow{
+    background-color: rgb(54, 54, 54);
+    color: rgb(255,255,255);
+    position: relative;
+    box-shadow: 0px 0px 30px 10px black;
+}
+.subwindow.loginGate{
+    width: 350px;
+    height: 200px;
+    left: -175px;
+    top: -100px;
+}
+.closeCross{
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(255,255,255);
+    border-radius: 5px;
+    background-color: rgb(35, 35, 35);
+    font-size: 16px;
+}
+.interactible{
+    border: 1px solid rgb(255,255,255);
+    border-radius: 5px;
+    background-color: rgb(35, 35, 35);
+    transition: 0.2s;
+    cursor: pointer;
+}
+.interactible:hover{
+    background-color: aliceblue;
+    color: rgb(0,0,0);
+}
+.interactible:hover img {
+    filter: invert(1);
+}
+.subwindow.loginGate form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    font-size: 16px;
+}
+.subwindow.loginGate form input{
+    height: 35px;
+    font-size: 16px;
+    border: 1px solid rgb(255,255,255);
+    border-radius: 5px;
+    background-color: rgb(35, 35, 35);
+    color: rgb(255,255,255);
+}
+.subwindow.loginGate form div, .subwindow.loginGate form input{
+    padding: 5px;
+}
+.subwindow.loginGate form .info{
+    height: 20px;
+    color: orangered;
+}
+.subwindow.loginGate form .submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    cursor: pointer;
+    transition: 0.2s;
+    height: 35px;
+}
+.deleteSubwindow{
+    width: 350px;
+    height: 110px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    top: -55px;
+    left: -175px;
+}
+.deleteSubwindow .cancel, .deleteSubwindow .submit, .deleteSubwindow .info{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.deleteSubwindow .cancel, .deleteSubwindow .submit{
+    width: 50px;
+    height: 30px;
+    margin-top: 10px;
+}
+.deleteSubwindow .submit{
+    margin-left: 20px;
+}
+iframe{
+    border: 0;
+}
+.subwindow{
+    width: 330px;
+    height: 170px;
+    top: -85px;
+    left: -165px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.subwindow.reqHum{
+    text-align: center;
+}
+.timemark_div{
+    text-align: center;
+}
+.kmo_input{
+    color: rgb(54, 54, 54);
+    background-color: rgb(54, 54, 54);
+    border: 0;
+    outline: none;
+}
+.pause_div, .set_div, .subwindow.reqHum .butt{
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-color: #6188e2;
+    color: #fff;
+}
+.pause_div:hover, .set_div:hover, .subwindow.reqHum .butt:hover{
+    background-color: #8fa9e5;
+}
+.pause_div:active, .set_div:active, .subwindow.reqHum .butt:active{
+    background-color: #385caf;
+}
+.subwindow.reqHum .question{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} 
+@media (max-width: 1080px) {
+    .subwindow{
+        font-size: 44px;
+        width: 550px;
+        height: 450px;
+        top: -225px;
+        left: -275px;
+    }
+    .timemark_input{
+        font-size: 44px;
+    }
+    .closeCross{
+        font-size: 24px;
+        width: 30px;
+        height: 30px;
+    }
+}
