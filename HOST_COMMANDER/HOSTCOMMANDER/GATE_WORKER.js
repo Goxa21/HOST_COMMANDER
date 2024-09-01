@@ -6,8 +6,8 @@ const ROUTER = require('./ROUTER.js');
 
 function StartSequence(){
     //console.log(workerData);
+    let header = {"Content-type": "text/html;  charsetcharset=utf-8"};
     ROUTER.ExecuteRequest(workerData.request).then((data)=> {
-        let header = {"Content-type": "text/html;  charsetcharset=utf-8"};
         if (workerData.request.path.ext == '.csv'){
             header = { "Content-type": "application/csv" };
         }
@@ -18,6 +18,11 @@ function StartSequence(){
         });
     }).catch((err) => {
         console.log(err);
+        parentPort.postMessage({
+            status:400,
+            header:header,
+            body:err.toString(),
+        });
     });
     
 }

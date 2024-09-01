@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKILLS ТРЕКЕР</title>
-    <link id='style_host' rel="stylesheet" href=""/>
+    <title>ИНФО-ЯДРО</title>
+    <link id='style_host' rel="stylesheet" href="./HC_CORE/HC_CORE_DEFAULT.css"/>
     <link id='style_font' rel="stylesheet" href="./HC_CORE/font.css"/>
 </head>
 <body>
@@ -12,8 +12,8 @@
     <progress class="loader" max="100" value="0"></progress>
     <div class="topline">
         <div class="logo dark">
-            <img src="./HC_CORE/images/HyperMatrix.png">
-            <pre>  SKILLS ТРЕКЕР</pre> 
+            <img src="./HC_CORE/images/BOX_LOGO_100px.png">
+            <pre>  ИНФОРМАЦИОННОЕ ЯДРО</pre> 
         </div>
         <div class="username"></div>
         <!--<div class="instruction interactible" title="Инструкция">
@@ -25,14 +25,21 @@
     </div>
     <div class="main">
         <div class="menu closed">
-            <div class="menuButton interactible" title="Меню">></div>
+            <div class="menuButton interactible" title="Свернуть/Развернуть">></div>
         </div>
         <iframe class="operator scaled" seamless></iframe>
+        <div class="operatorBackground scaled">
+        </div>
     </div>
-    <div class="subwindowRoot closed">
+    <div class="subwindowRoot closed"></div>
+    <div class="contextRoot closed"></div>
     </div>
     <iframe id= "download" style="display: none;"></iframe>
 </body>
+<script src="./FUnits/_utilClasses/IconResolver.js"></script>
+<script src="./FUnits/_utilClasses/Poster.js"></script>
+<script src="./FUnits/_utilClasses/Subwindow.js"></script>
+<script src="./HC_CORE/MODULE_LIBRARY.js"></script>
 <script src="./HC_CORE/HC_CORE.js"></script>
 
 </html>

@@ -1,0 +1,50 @@
+/*{
+	font-family: 'Rosatom';
+}
+@font-face{
+	font-family: 'Rosatom';
+	src: url("../../fonts/RST75.ttf");
+}*/
+html{
+    overflow: hidden;
+}
+body{
+    margin: 0;
+    color: rgb(0, 0, 0);
+    margin-left: 15px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.dlbutton, .extra_check, .extra_mail{
+    width: 300px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 15px;
+    background-color: rgb(180 199 220);
+    text-align: center;
+    color: rgb(57 99 158);
+    cursor: pointer;
+}
+.dlbutton:hover, .extra_check:hover, .extra_mail:hover{
+    background-color: rgb(220, 233, 248);
+}
+.loader_base{
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    left: 360px;
+    display: flex;
+    white-space: pre;
+    text-align: bottom;
+    top: 10px;
+    color: #7bc96e;
+    align-items: center;
+}

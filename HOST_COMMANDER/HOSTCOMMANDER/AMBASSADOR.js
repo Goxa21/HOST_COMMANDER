@@ -4,11 +4,12 @@ class AMBASSADOR{
     constructor(){
         this.pool = new Pool({
             user: 'user',
-            database: 'database',
-            password: 'password',
+            database: 'example',
+            password: 'user',
             port: 5432,
-            host: 'hostname',
+            host: 'example.ru',
         });
+        
 
     }
     async launchQuery(request) {

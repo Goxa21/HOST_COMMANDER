@@ -1,3 +1,4 @@
+const { cosmiconfig } = require('cosmiconfig');
 const fs = require('fs');
 
 class ROUTER {
@@ -20,6 +21,7 @@ class ROUTER {
             if (request.path.ext == '.csv'){
                 let curModule = require('../ASSETS/FUnits/' + request.path.dir + '/HC_Module.js');
                 curModule.Execute(request).then((data)=>{
+                    //console.log('RESOLVING ROUTER');
                     resolve(data);
                 }).catch((err)=>{
                     reject(err);

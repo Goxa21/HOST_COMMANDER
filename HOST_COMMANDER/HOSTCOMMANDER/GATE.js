@@ -5,6 +5,7 @@ const URL = require('url');
 const Path = require('path');
 const cookie = require('cookie');
 const SESSION_MANAGER = require('./SESSION_MANAGER.js');
+const ACCESS_CHECKER = require('./ACCESS_CHECKER.js');
 
 
 const {
@@ -15,19 +16,20 @@ const { pathMatch } = require('tough-cookie');
 
 class GATE {
     constructor(options) {
+        console.log(options);
         this.options = options || {
             PORT: 8080,
             DEVMODE: true,
             RPATH: '.',
         };
-        if (this.options.RPATH != '.'){
+        if (this.options.RPATH != '.') {
             process.chdir(this.options.RPATH);
         }
         this.ssl;
-        if (this.options.DEVMODE) {
+        if (!this.options.DEVMODE) {
             this.ssl = {
-                key: fs.readFileSync(this.options.RPATH + '/ssl/dom/bal-webapps-01.server.decrypted.key'),
-                cert: fs.readFileSync(this.options.RPATH + '/ssl/dom/bal-webapps-01.server.crt'),
+                key: fs.readFileSync(this.options.RPATH + '/ssl/bal-bi-app.server.decrypted.key'),
+                cert: fs.readFileSync(this.options.RPATH + '/ssl/bal-bi-app.server.crt'),
             }
         }
         else {
@@ -52,10 +54,10 @@ class GATE {
             let curCookie = {};
             let curSession = null;
             if (request.headers.cookie != null) {
-                try{
+                try {
                     curCookie = JSON.parse(cookie.parse(request.headers.cookie).cook);
                 }
-                catch{
+                catch {
                     //console.log('DEFECTIVE COOKIE!!!');
                 }
                 curSession = SESSION_MANAGER.CheckSessionExistance(curCookie.userName, curCookie.sessionKey);
@@ -75,12 +77,15 @@ class GATE {
                             SESSION_MANAGER.OpenNewSession(curData.user, curData.pass).then((curSession) => {
                                 if (curSession != null) {
                                     let sessionResponce = JSON.parse(JSON.stringify(curSession));
-                                    sessionResponce.sessionKey = null;
-                                    response.writeHead(200, { 'Set-Cookie': SetLoginCookie(curSession.userName, curSession.sessionKey), "Content-type": "text/plain;  charsetcharset=utf-8", 'Secure': 'HttpOnly' });
-                                    response.end(JSON.stringify({
-                                        data: sessionResponce,
-                                        status: 'success',
-                                    }));
+                                    ACCESS_CHECKER.Check(sessionResponce).then((curTree) => {
+                                        console.log(curTree);
+                                        sessionResponce.sessionKey = null;
+                                        response.writeHead(200, { 'Set-Cookie': SetLoginCookie(curSession.userName, curSession.sessionKey), "Content-type": "text/plain;  charsetcharset=utf-8", 'Secure': 'HttpOnly' });
+                                        response.end(JSON.stringify({
+                                            data: { session: sessionResponce, login_info: curTree },
+                                            status: 'success',
+                                        }));
+                                    });
                                 }
                             }).catch((err) => {
                                 response.writeHead(200, { "Content-type": "text/plain;  charsetcharset=utf-8" });
@@ -95,12 +100,15 @@ class GATE {
                             curSession = SESSION_MANAGER.CheckSessionExistance(curCookie.userName, curCookie.sessionKey);
                             if (curSession != null) {
                                 let sessionResponce = JSON.parse(JSON.stringify(curSession));
-                                sessionResponce.sessionKey = null;
-                                response.writeHead(200, { 'Set-Cookie': SetLoginCookie(curSession.userName, curSession.sessionKey), "Content-type": "text/plain;  charsetcharset=utf-8", 'Secure': 'HttpOnly' });
-                                response.end(JSON.stringify({
-                                    data: sessionResponce,
-                                    status: 'success',
-                                }));
+                                ACCESS_CHECKER.Check(sessionResponce).then((curTree) => {
+                                    console.log(curTree);
+                                    sessionResponce.sessionKey = null;
+                                    response.writeHead(200, { 'Set-Cookie': SetLoginCookie(curSession.userName, curSession.sessionKey), "Content-type": "text/plain;  charsetcharset=utf-8", 'Secure': 'HttpOnly' });
+                                    response.end(JSON.stringify({
+                                        data: { session: sessionResponce, login_info: curTree },
+                                        status: 'success',
+                                    }));
+                                });
                                 return;
                             }
                             else {
@@ -112,7 +120,7 @@ class GATE {
                                 return;
                             }
                         }
-                        else if (curSession == null){
+                        else if (curSession == null) {
                             response.writeHead(200, { "Content-type": "text/plain;  charsetcharset=utf-8" });
                             response.end(JSON.stringify({
                                 data: {},
@@ -141,12 +149,13 @@ class GATE {
                     cookie: curCookie || {},
                     method: curMethod,
                     data: curData,
-                    path:curPath,
-                    singletonResult:singletonResult,
+                    path: curPath,
+                    singletonResult: singletonResult,
+                    session: curSession,
                 }
-                if (curPath.ext == '.sf'){
-                    let curModule = require('../ASSETS/FUnits/' + curData.unit + '/HC_Singleton.js');
+                if (curPath.ext == '.sf') {
                     try {
+                        let curModule = require('../ASSETS/FUnits/' + curData.unit + '/HC_Singleton.js');
                         singletonResult = await curModule.Execute(requestPrefab);
                         //console.log('SINGLETON RESULT:' + singletonResult);
                         requestPrefab.singletonResult = singletonResult;
@@ -171,9 +180,9 @@ class GATE {
                     }
                     response.end(message.body);
                 });
-                GATE_WORKER.on('exit',function(){
+                GATE_WORKER.on('exit', function () {
                     //console.log('GATE_CLOSED');
-                })
+                });
             }
         });
 
@@ -190,7 +199,6 @@ class GATE {
     Listen() {
         try {
             this.server.listen(this.options.PORT, '0.0.0.0', () => {
-                console.clear();
                 console.log(" ");
                 console.log(`HOSTCOMMANDER started on PORT ${this.options.PORT}`);
                 console.log(" ");

@@ -75,6 +75,10 @@ class SESSION_MANAGER {
         }
         return key;
     }
+
+    CLI_List(){
+        return this.sessions;
+    }
 }
 
 
