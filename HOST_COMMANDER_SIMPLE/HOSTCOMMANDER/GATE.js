@@ -1,0 +1,138 @@
+const fs = require('fs');
+const https = require('https');
+const http = require('http');
+const URL = require('url');
+const Path = require('path');
+const cookie = require('cookie');
+const SESSION_MANAGER = require('./SESSION_MANAGER.js');
+
+
+const {
+    Worker, isMainThread, parentPort, workerData
+} = require('worker_threads');
+
+
+class GATE {
+    constructor(options) {
+        console.log(options);
+        this.options = options || {
+            PORT: 8080,
+            DEVMODE: true,
+            RPATH: '.',
+        };
+        if (this.options.RPATH != '.') {
+            process.chdir(this.options.RPATH);
+        }
+        
+        this.server = null;
+    }
+
+    Start() {
+        let options = this.options;
+        this.server = http.createServer(function (request, response) {
+
+            let curUrl = URL.parse(request.url, true);
+            let curPath = Path.parse(curUrl.pathname);
+            let curCookie = {};
+            let curSession = null;
+            if (request.headers.cookie != null) {
+                try {
+                    curCookie = JSON.parse(cookie.parse(request.headers.cookie).cook);
+                }
+                catch {
+                    //console.log('DEFECTIVE COOKIE!!!');
+                }
+                curSession = SESSION_MANAGER.CheckSessionExistance(curCookie.userName, curCookie.sessionKey);
+            }
+            let curMethod = request.method;
+            let curData = '';
+            switch (curMethod) {
+                case "GET":
+                    OpenGate();
+                    break;
+                case "POST":
+                    request.on('data', (data) => {
+                        curData += data;
+                    }).on('end', () => {
+                        curData = JSON.parse(curData);
+                        OpenGate();
+                    })
+                    break;
+            }
+
+            async function OpenGate() {
+                let singletonResult = null;
+                let requestPrefab = {
+                    url: curUrl,
+                    cookie: curCookie || {},
+                    method: curMethod,
+                    data: curData,
+                    path: curPath,
+                    singletonResult: singletonResult,
+                    session: curSession,
+                }
+                if (curPath.ext == '.sf') {
+                    try {
+                        let curModule = require('../ASSETS/FUnits/' + curData.unit + '/HC_Singleton.js');
+                        singletonResult = await curModule.Execute(requestPrefab);
+                        //console.log('SINGLETON RESULT:' + singletonResult);
+                        requestPrefab.singletonResult = singletonResult;
+                    }
+                    catch {
+                        console.log('SingletonNotFound at ' + '../ASSETS/FUnits/' + curData.unit + '/HC_Singleton.js');
+                    }
+                }
+                let GATE_WORKER = new Worker(options.RPATH + '/HOSTCOMMANDER/GATE_WORKER.js', {
+                    workerData: {
+                        options: options,
+                        request: requestPrefab,
+                        session: curSession,
+                    }
+                });
+                GATE_WORKER.once('message', function (message) {
+                    //console.log(curPath.base);
+                    response.writeHead(message.status, message.header);
+                    if (curPath.ext == ".html" || (curPath.name == '' && curPath.dir == '/')) {
+                        response.write("<script id='data' type = 'application/json'>" + JSON.stringify(curUrl.query) + "</script>");
+                        response.write("<script id='host' type = 'application/json'>" + request.headers.host + "</script>");
+                    }
+                    response.end(message.body);
+                });
+                GATE_WORKER.on('exit', function () {
+                    //console.log('GATE_CLOSED');
+                });
+            }
+        });
+
+        this.Listen();
+
+        function SetLoginCookie(userName, sessionKey) {
+            return 'cook=' + JSON.stringify({
+                'userName': userName,
+                'sessionKey': sessionKey
+            });
+        }
+    }
+
+    Listen() {
+        try {
+            this.server.listen(this.options.PORT, '0.0.0.0', () => {
+                console.log(" ");
+                console.log(`HOSTCOMMANDER started on PORT ${this.options.PORT}`);
+                console.log(" ");
+                console.log("--DIAGNOSTICS:");
+            });
+        }
+        catch (e) {
+            console.log("---FATAL--ERROR---");
+            console.log(e);
+            console.log("---RESTARTING--SERVER---");
+            this.Listen();
+        }
+    }
+
+
+}
+
+
+module.exports = GATE;

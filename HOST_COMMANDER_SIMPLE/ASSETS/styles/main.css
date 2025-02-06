@@ -1,0 +1,334 @@
+@font-face {
+    font-family: "Sci-fi";
+    src: url(../fonts/AnnabelleRegular.ttf);
+}
+
+@font-face {
+    font-family: "Main";
+    src: url(../fonts/AnnabelleRegular.ttf);
+}
+
+@font-face {
+    font-family: "Annabelle";
+    src: url(../fonts/AnnabelleRegular.ttf);
+}
+
+@font-face {
+    font-family: "Century";
+    src: url(../fonts/centurygothic.ttf);
+}
+@font-face {
+    font-family: "Century_Bold";
+    src: url(../fonts/centurygothic_bold.ttf);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #00000070 transparent;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+body {
+    font-family: "Century";
+    color: rgb(234, 241, 245);
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    background-image: url('../images/1.png');
+}
+
+.operator {
+    position: relative;
+    /*background-color: rgb(228, 231, 243);*/
+    min-width: 300px;
+    margin: 0px;
+    height: 100%;
+    border-radius: 15px;
+    z-index: 1;
+}
+
+.PH_1_container {
+    width: 100%;
+    display: flex;
+    position: relative;
+    max-height: 500px;
+    overflow: hidden;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+}
+
+.PH_1 {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.PH_1_overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.hyper_title{
+    position: relative;
+    font-family: 'Annabelle';
+    font-size: 70px;
+    margin-top: 25px;
+    color: #e74317;
+    /* background-color: rgba(255, 255, 255, 0.75); */
+    border-radius: 15px;
+    z-index: 1;
+    filter: drop-shadow(0px 0px 4px #e74317);
+}
+.title_block {
+    position: relative;
+    font-family: 'Sci-fi';
+    padding-top: 10px;
+    font-size: 36px;
+    margin-top: -137px;
+    background-color: rgba(0, 0, 0, 0.34);
+    z-index: 3;
+    width: 100%;
+}
+
+.timer_block {
+    position: relative;
+    font-family: "Main";
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.34);
+    z-index: 3;
+    width: 100%;
+    padding-top: 7px;
+}
+
+.counter_display {
+    margin: 5px;
+    width: 55px;
+}
+
+.counter_value {
+    font-size: 35px;
+    /* font-family: 'Sci-fi'; */
+    font-family: 'Main';
+    filter: drop-shadow(0px 0px 4px white);
+    height: 40px;
+}
+
+.counter_text {
+    font-size: 15px;
+    /* font-family: 'Main'; */
+    font-family: 'Century';
+}
+
+.main_scroll {
+    overflow-y: scroll;
+    height: 100%;
+    box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.34);
+}
+
+.main_scroll_plaform {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.main_scroll_plaform_background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    right: 0px;
+    /*filter: brightness(1.1);*/
+    pointer-events: none;
+    background-image: url('../images/1.png');
+    background-size: contain;
+}
+
+.block_1 {
+    display: flex;
+    color: #185332;
+    font-size: 24px;
+    margin-top: 50px;
+    width: 70%;
+    min-height: 20%;
+    opacity: 0%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 300px;
+    max-width: 1000px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 15px;
+
+}
+
+.fadeIn_L {
+    position: relative;
+    animation: fadeIn_L 1s ease-in-out;
+    opacity: 100%;
+}
+
+@keyframes fadeIn_L {
+    0% {
+        opacity: 0%;
+        left: -20px;
+    }
+
+    100% {
+        opacity: 100%;
+        left: 0px
+    }
+}
+
+.subtitle {
+    font-family: "Main";
+    font-size: 50px;
+    color: #e74317;
+}
+
+.calendar {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 15px 0px;
+    padding: 15px;
+}
+
+.m_title {
+    font-size: 30px;
+    margin: 5px;
+    font-weight: bold;
+    font-family: 'Sci-fi';
+    color: #e74317;
+
+}
+
+.table {
+    width: 100%;
+}
+
+.week_td {}
+
+.t_td {
+    width: 30px;
+    height: 30px;
+    color: #185332;
+    font-size: 20px;
+    font-weight: bold;
+    /* font-family: 'Sci-fi'; */
+    padding: 5px;
+    padding-bottom: 0px;
+}
+
+.t_td.target {
+    background-color: #e74317;
+    color: white;
+    border-radius: 50%;
+}
+.columns_base{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.column{
+    margin: 15px;
+}
+.column .b_img{
+    position: relative;
+    display: flex;
+    width: 340px;
+    height: 280px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.column .b_img img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.column .b_img .cntxt{
+    font-family: 'Century';
+    width: 100%;
+    bottom: 00%;
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.43);
+    z-index: 2;
+}
+.schedule_base{
+    position: relative;
+    left: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+.schedule_line{
+    position: absolute;
+    top: 20px;
+    height: calc(100% - 40px);
+    left: 47px;
+    z-index: 1;
+    border-left: #185332 3px dashed;
+}
+.schedule_row{
+    min-width: 300px;
+    max-width: 1000px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    left: -20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.schedule_row.right{
+    flex-direction: row-reverse;
+}
+.schedule_image{
+    width: 90px;
+    height: 90px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 50%;
+}
+.schedule_image img{
+    height: 100px;
+    width: 100px;
+}
+.schedule_text{
+    margin: 10px;
+    width: 100%;
+    text-align: start;
+}
+.right .schedule_text{
+    text-align: end;
+}
