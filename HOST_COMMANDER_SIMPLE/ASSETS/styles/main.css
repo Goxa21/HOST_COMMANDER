@@ -233,7 +233,9 @@ body {
     width: 100%;
 }
 
-.week_td {}
+.week_td {
+    color: #185332;
+}
 
 .t_td {
     width: 30px;
@@ -389,7 +391,7 @@ body {
 }
 
 .responce_panel:hover {
-    filter: brightness(1.2);
+    
 }
 
 .responce_panel.unraveled {
@@ -428,7 +430,7 @@ body {
     filter: opacity(1);
     visibility: visible;
 }
-.r_title {
+.r_title{
     width: 100%;
     font-size: 25px;
     animation: r_title 3s infinite ease-in-out;
@@ -438,20 +440,23 @@ body {
     0% {
         scale: 1;
     }
-
     50% {
-        scale: 1.2;
+        scale: 1.1;
     }
-
     100% {
         scale: 1;
     }
+}
+
+.input_base input{
+    width: 80%;
+    font-size: 16px;
 }
 .r_opts_base{
     display: flex;
     flex-direction: row;
     align-content: center;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
     align-items: center;
 }
@@ -469,6 +474,10 @@ body {
     cursor: pointer;
     transition: 0.5s;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.34);
+    position: relative;
+}
+.r_opt.custom_input{
+    width: 80%;
 }
 .r_opt:hover{
     scale: 1.1;
@@ -479,11 +488,40 @@ body {
 }
 .r_opt_input{
     position: absolute;
-    bottom: 0px;
+    bottom: -100px;
     opacity: 0;
     transition: 0.5s;
+    font-size: 16px;
+    width: 100%;
 }
 .r_opt.selected .r_opt_input{
     opacity: 1;
-    bottom: 50px;
+    bottom: -30px;
+}
+.ans_base{
+    display: flex;
+    justify-content: center;
+    border-top: white 2px solid;
+    margin-top: 50px;
+}
+.ans_button{
+    background-color: aliceblue;
+    color: gray;
+    width: 80%;
+    height: 50px;
+    border-radius: 15px;
+    margin: 15px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.34);
+    position: relative;
+    transition: 0.5s;
+}
+.ans_base.inactive{
+    border-top: #e74317 2px solid;
+    opacity: 0.2;
 }
