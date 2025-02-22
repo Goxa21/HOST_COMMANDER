@@ -48,8 +48,15 @@ class ResponceCtrl {
         for (let q of THIS.questions) {
             let q_base = THIS.DRAW_OPT_SELECTOR(q);
         }
+
+
         THIS.answer_button_base = document.createElement('div');
         THIS.answer_button_base.classList.add('ans_base');
+
+        let ans_await = document.createElement('div');
+        ans_await.classList.add('ans_await');
+        ans_await.innerHTML = 'Подождите, идёт отправка вашего ответа...';
+        THIS.answer_button_base.appendChild(ans_await);
 
         let ans_button = document.createElement('div');
         ans_button.classList.add('ans_button');
@@ -57,9 +64,25 @@ class ResponceCtrl {
         ans_button.innerHTML = 'Отправить';
         THIS.answer_button_base.appendChild(ans_button);
         THIS.responce_base.appendChild(THIS.answer_button_base);
+
+        let ans_block = false;
         ans_button.addEventListener('click',function(e){
+            if (ans_block){
+                return;
+            }
+            ans_block = true;
             if (!THIS.answer_button_base.classList.contains('inactive')){
-                
+                THIS.answer_button_base.classList.add('await');
+                SendPost({
+                    unit:"responces",
+                    command:'write_answer',
+                    postData:THIS.answer,
+                },'gate.sf',function(callback){
+                    THIS.answer_button_base.classList.remove('await');
+                    THIS.answer_button_base.classList.add('success');
+                    THIS.responce_base.classList.add('success');
+                    ans_await.innerHTML = 'Ваш ответ на приглашение отправлен!';
+                })
             }
         })
 
@@ -97,7 +120,7 @@ class ResponceCtrl {
                 opt_input.classList.add('r_opt_input');
                 opt_button.appendChild(opt_input);
                 opt_input.addEventListener('input', function (e) {
-                    THIS.answer[cfg.name] = opt_input.value;
+                    THIS.answer[cfg.name][opt.text] = opt_input.value;
                 });
                 opt_input.addEventListener('click', function (e) {
                     e.stopPropagation();

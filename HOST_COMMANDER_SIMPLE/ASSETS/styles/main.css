@@ -400,7 +400,7 @@ body {
     left: 0px;
     transition: 1s;
     animation:none;
-    height: calc(80% - 50px);
+    height: calc(90% - 10px);
 }
 
 @keyframes responce_panel_unraveled {
@@ -460,6 +460,9 @@ body {
     flex-wrap: wrap;
     align-items: center;
 }
+.responce_panel.success input, .responce_panel.success .r_opts_base{
+    opacity: 0.2;
+}
 .r_opt{
     background-color: aliceblue;
     color: gray;
@@ -504,6 +507,17 @@ body {
     border-top: white 2px solid;
     margin-top: 50px;
 }
+.ans_await{
+    position: absolute;
+    width: 80%;
+    padding-top: 10px;
+    opacity: 0;
+    transition: 0.5s;
+}
+.ans_base.await .ans_await, .ans_base.success .ans_await{
+    opacity: 1;
+    font-size: 26px;
+}
 .ans_button{
     background-color: aliceblue;
     color: gray;
@@ -524,4 +538,7 @@ body {
 .ans_base.inactive{
     border-top: #e74317 2px solid;
     opacity: 0.2;
+}
+.ans_base.await .ans_button, .ans_base.success .ans_button{
+    opacity: 0;
 }
