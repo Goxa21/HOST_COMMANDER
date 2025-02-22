@@ -106,11 +106,12 @@ body {
     position: relative;
     font-family: 'Sci-fi';
     padding-top: 10px;
-    font-size: 36px;
+    font-size: 33px;
     margin-top: -137px;
     background-color: rgba(0, 0, 0, 0.34);
     z-index: 3;
     width: 100%;
+    white-space: nowrap;
 }
 
 .timer_block {
